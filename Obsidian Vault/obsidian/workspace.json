@@ -1,0 +1,183 @@
+{
+  "main": {
+    "id": "9e6751a9f5e2e9cf",
+    "type": "split",
+    "children": [
+      {
+        "id": "46f69628a97c4544",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "246b341fa581db2f",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "9fe3ded96bc08774",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Personal_document/Документация Hexoworld.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8dd46e3b5d718812",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.4.16"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cf7151a4f03c5952",
+    "type": "split",
+    "children": [
+      {
+        "id": "2a35167f6081fe1c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "803c0df5db7b9e2b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9dd95019fc83f01a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "a59bf635da9d0ba9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c8357e53b6cebbbd",
+    "type": "split",
+    "children": [
+      {
+        "id": "03da0dbbdd961862",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "27a3a956b8f5cd42",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Personal_document/Документация Hexoworld.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "772f14905c855bf9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Personal_document/Документация Hexoworld.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "5fae52a087510b4d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "8a7769ae7c1d91bb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Personal_document/Документация Hexoworld.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "daily-notes:Сегодняшняя заметка": false,
+      "templates:Вставить шаблон": false,
+      "command-palette:Открыть палитру команд": false
+    }
+  },
+  "active": "803c0df5db7b9e2b",
+  "lastOpenFiles": [
+    "documents",
+    "Без названия",
+    "Personal_document/hex_bw8.png",
+    "Personal_document/hex_bw6.png",
+    "Personal_document/hex_bw1.png",
+    "Personal_document/hex_bw.png",
+    "Personal_document/Документация Hexoworld.md",
+    "Pasted image 20231016212339.png",
+    "jogktkhnokythn.md",
+    "3rd-sem-docs.md",
+    "Personal_document",
+    "Без названия.canvas"
+  ]
+}
