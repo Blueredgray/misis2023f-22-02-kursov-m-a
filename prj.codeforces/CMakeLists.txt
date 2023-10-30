@@ -1,0 +1,1 @@
+add_executable(1873c 1873c.cpp)
