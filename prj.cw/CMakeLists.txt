@@ -1,1 +1,1 @@
-add_executable (hexbox  "hexbox.h" "hb_test.cpp")
+add_subdirectory (hexobox_lib)
