@@ -2,13 +2,13 @@
 #include <chrono>
 
 
-void test_hexbox(cint it) {
+void test_hexbox(cint it, cint w, cint h) {
     int time = 0;
     for (int i = 0; i < it; i += 1) {
         auto begin = std::chrono::steady_clock::now();
         //std::cout << "\n";
-        int x = 100;
-        int y = 100;
+        int x = w;
+        int y = h;
         Hexbox hb(x, y);
         hex_args Hex1{ 5, 6 };
         Hex1.hex_h = 3;
@@ -21,9 +21,9 @@ void test_hexbox(cint it) {
         time += elapsed_ms.count();
 
     }
-    std::cout << std::endl <<"Time avg : \t" << int(time / it);
+    std::cout << std::endl <<"Time avg : \t" << int(time / it) << " mcs";
 }
 
 int main() {
-    test_hexbox(1000);
+    test_hexbox(1000, 50, 50);
 }

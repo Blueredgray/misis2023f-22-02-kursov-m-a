@@ -2,7 +2,6 @@
 #include <array>
 #include <vector>
 
-
 typedef const int& cint;
 
 //данные перехода
@@ -22,8 +21,6 @@ struct hex_args {
     //std::array <int, 6> vertex = { 0,0,0,0,0,0 }; //адреса вершин (нужно ли хранить?)
     //hex_args() : hex_h(0), type_mat(0){}
 };
-
-
 
 class Hexbox {
 public:
@@ -47,6 +44,12 @@ public:
     //API
     hex_args GetHex(cint x, cint y); //возвращает гекс с координатами x, y
     smooth_trans_args GetSt(cint ch1, cint ch2); //возвращает переход по двум номерам двух гексов
+    int GetSt_num(cint ch1, cint ch2);
+    int GetHeight_hex(cint x, cint y);
+    int GetHeight_st(cint ch1, cint ch2);
+    void PutHeight_hex(cint x, cint y, cint h);
+    void PutHeight_st(cint ch1, cint ch2, cint h);
+
 private:
     int number_ch(cint x, cint y, cint w); //номер гекса в массиве гексов(по x, y и ширине поля)(только если квадратное!)
 
@@ -87,6 +90,8 @@ inline int Hexbox::count_st_func(cint x, cint y)
     return c;
 }
 
+//API
+
 //получает гекс по xy (в виде структуры гекса)
 inline hex_args Hexbox::GetHex(cint x, cint y)
 {
@@ -103,6 +108,36 @@ inline smooth_trans_args Hexbox::GetSt(cint ch1, cint ch2)
     int y2 = ch2 / w;
     int n_st = number_st(x1, y1, x2, y2, w);
     return st_grid[n_st];
+}
+
+inline int Hexbox::GetSt_num(cint ch1, cint ch2)
+{
+    return 0;
+}
+
+inline int Hexbox::GetHeight_hex(cint x, cint y)
+{
+
+    return GetHex(x,y).hex_h;
+}
+
+inline int Hexbox::GetHeight_st(cint ch1, cint ch2)
+{
+    return GetSt(ch1,ch2).st_h;
+}
+
+inline void Hexbox::PutHeight_hex(cint x, cint y, cint h)
+{
+    hex_grid[number_ch(x,y,w)].hex_h = h;
+}
+
+inline void Hexbox::PutHeight_st(cint ch1, cint ch2, cint h)
+{
+    int x1 = ch1 % w;
+    int x2 = ch2 % w;
+    int y1 = ch1 / w;
+    int y2 = ch2 / w;
+    st_grid[number_st(x1, y1, x2, y2, w)].st_h = h;
 }
 
 //заполняет массив гексов нулями
@@ -129,4 +164,3 @@ int Hexbox::number_ch(cint x, cint y, cint w)
 {
     return w * y + x;
 }
-
