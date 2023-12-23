@@ -1,4 +1,4 @@
-﻿#include <iostream>
+﻿//#include <iostream>
 #include <array>
 #include <vector>
 #include <algorithm>
@@ -15,9 +15,9 @@ struct smooth_trans_args {
 
 //данные шестиугольника
 struct hex_args {
-    float x2d = 0;
-    //int x2d = 0; //x в 2Д
-    int y2d = 0; //y в 2Д
+    //float x2d = 0;
+    long int x2d = 0; //x в 2Д
+    long int y2d = 0; //y в 2Д
     int hex_h = 0; //высота (в 3D)
     int type_mat = 0; //тип материала/текстуры гекса 
 
@@ -35,6 +35,8 @@ public:
     int a = 5; 
     std::vector <hex_args> hex_grid; //массив шестиугольников
     std::vector <smooth_trans_args>  st_grid; //массив переходов
+
+    std::array <std::pair <unsigned int, int>, 4> near_hex = {};
     Hexbox(cint x, cint y) {
         w = x;
         h = y;
@@ -65,9 +67,8 @@ public:
     void PutHeight_st(cint ch1, cint ch2, cint h);
 
     //Для материалов поверхностей
-    int Get_hex_near(cint x, cint y); //возращает номер ближайшего гекса отсносительно 2д точки, 
+    void Get_hex_near(cint x, cint y); //заполняет массив 4-мя расстояниями и номерами ближайших гексов относительно 2д точки, 
     //где а - расстояние от центра гекса до его вершин
-
 
 private:
     int number_ch(cint x, cint y, cint w); //номер гекса в массиве гексов(по x, y и ширине поля)(только если квадратное!)
@@ -179,7 +180,7 @@ inline void Hexbox::PutHeight_st(cint ch1, cint ch2, cint h)
 }
 
 //даёт номер ближайшего гекса от точки в 2д плоскости
-inline int Hexbox::Get_hex_near(cint point_x, cint point_y)
+inline void Hexbox::Get_hex_near(cint point_x, cint point_y)
 {
     /*int h = a * sqrt(3) / 2;
     float xh = x / h;
@@ -189,9 +190,9 @@ inline int Hexbox::Get_hex_near(cint point_x, cint point_y)
     std::vector <std::pair <unsigned int, int>> distance_vec = {};
     unsigned int distance = 0;
     int x_dif = 0; //разница по х
-    int y_dif = 0; //зазница по у
+    int y_dif = 0; //разница по у
     for (int i = 0; i < count_hex; i += 1) {
-        x_dif = hex_grid[i].x2d - point_x; 
+        x_dif = hex_grid[i].x2d - point_x;
         y_dif = hex_grid[i].y2d - point_y;
         distance = sqrt(x_dif * x_dif + y_dif * y_dif);
         distance_vec.push_back(std::make_pair(distance,i));
@@ -202,7 +203,12 @@ inline int Hexbox::Get_hex_near(cint point_x, cint point_y)
     /*int xh1 = ( x / h ) - h;
     int ya1 = ( y / (1.5 * a) ) - a;*/
 
-    return distance_vec[0].second;
+    //return distance_vec[0].second;
+    near_hex[0] = distance_vec[0];
+    near_hex[1] = distance_vec[1];
+    near_hex[2] = distance_vec[2];
+    near_hex[3] = distance_vec[3];
+
 }
 
 //заполняет массив гексов нулями

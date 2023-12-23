@@ -1,3 +1,4 @@
+#include <iostream>
 #include "hexbox.h"
 #include <chrono>
 
@@ -27,6 +28,7 @@ void test_hexbox(cint it, cint w, cint h) {
 }
 
 void test_view(cint w, cint h) {
+    
     Hexbox hb1(w, h);
     for (int y = 0; y < h; y += 1) {
         for (int x = 0; x < w; x += 1) {
@@ -34,12 +36,18 @@ void test_view(cint w, cint h) {
         }
         std::cout << 5 * sqrt(3) / 2 << std::endl;
     }
-    std::cout << hb1.hex_grid[hb1.Get_hex_near(10,2)].x2d << " " << hb1.hex_grid[hb1.Get_hex_near(10, 2)].y2d;
+    auto begin = std::chrono::steady_clock::now();
+    hb1.Get_hex_near(10, 2);
 
+    std::cout << hb1.hex_grid[hb1.near_hex[0].second].x2d << " " << hb1.hex_grid[hb1.near_hex[0].second].y2d;
+
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed_ms = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
+
+    std::cout << std::endl << "Time avg : \t" << int(elapsed_ms.count()) << " mcs";
 }
 
 int main() {
-    //test_hexbox(1000, 50, 50);
+    //test_hexbox(10000, 50, 50);
     test_view(4, 4);
-
 }
