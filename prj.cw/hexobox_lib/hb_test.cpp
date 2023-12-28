@@ -37,9 +37,11 @@ void test_view(cint w, cint h) {
         std::cout << 5 * sqrt(3) / 2 << std::endl;
     }
     auto begin = std::chrono::steady_clock::now();
-    hb1.Get_hex_near(10, 2);
+    //hb1.Get_hex_near(10, 2, 0);
 
-    std::cout << hb1.hex_grid[hb1.near_hex[0].second].x2d << " " << hb1.hex_grid[hb1.near_hex[0].second].y2d;
+    //std::cout << hb1.hex_grid[hb1.near_hex[0].second].x2d << " " << hb1.hex_grid[hb1.near_hex[0].second].y2d;
+    std::cout << hb1.hex_grid[hb1.Get_hex_near(10, 2, 0)].x2d << " " << hb1.hex_grid[hb1.Get_hex_near(10, 2, 0)].y2d << std::endl;
+    std::cout << hb1.GetCoordX_hex_near(10, 2, 0) << " " << hb1.GetCoordY_hex_near(10, 2, 0);
 
     auto end = std::chrono::steady_clock::now();
     auto elapsed_ms = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
