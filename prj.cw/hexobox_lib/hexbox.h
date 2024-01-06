@@ -1,6 +1,10 @@
 ﻿//#include <iostream>
+#include <fstream>
+
 #include <array>
 #include <vector>
+#include <string>
+
 #include <algorithm>
 
 typedef const int& cint;
@@ -32,13 +36,14 @@ public:
     int h; //высота(в 2D) поля (OY)(или длина...)(в кол-ве гексов)
     int count_st; //кол-во переходов
     int count_hex; //кол-во гексов
-    int a = 5; 
+    int a; //сторона (ребро) гекса
     std::vector <hex_args> hex_grid; //массив шестиугольников
     std::vector <smooth_trans_args>  st_grid; //массив переходов
     
-    Hexbox(cint x, cint y) {
-        w = x;
-        h = y;
+    Hexbox(cint xx, cint yy, cint aa) {
+        w = xx;
+        h = yy;
+        a = aa;
         count_hex = w * h;
         count_st = count_st_func(w, h);
         fe_hex_grid(w, h, a);
@@ -75,6 +80,10 @@ public:
     //+ заполняет массив 4-мя расстояниями и номерами ближайших гексов относительно 2д точки, 
     //где а - расстояние от центра гекса до его вершин
 
+    //сохраняет сетку в файл с именем name
+    void save(std::string name);
+    void load(std::string name);
+    
 private:
     std::pair <int, int> point_near = {};
     std::array <std::pair <unsigned int, int>, 4> near_hex = {};
@@ -98,11 +107,11 @@ private:
 //     (может быть использовано как особый номер для индикации границ поля и его обработки(специальный переход для границы)))
 inline int Hexbox::number_st(cint x1, cint y1, cint x2, cint y2, cint w)
 {
-    int ch1 = number_ch(x1, y1, w);
-    int ch2 = number_ch(x2, y2, w);
+    int ch1 = std::min(number_ch(x1, y1, w), number_ch(x2, y2, w));
+    int ch2 = std::max(number_ch(x1, y1, w), number_ch(x2, y2, w));
     //if (( ch1 < ch2) || ((ch1 + 1) == ch2) || ((ch1 + w) == ch2) || ((ch1 + w + 1) == ch2) 
-    if ((ch1 < ch2) && (((ch1 + 1) == ch2 && y1 == y2) || ((ch1 + w) == ch2) || 
-        (((ch1 + w - 1) == ch2) && y1 % 2 == 0)))
+    if ((ch1 < ch2) && (((ch1 + 1) == ch2 && (y1 == y2)) || ((ch1 + w) == ch2) ||
+        (((ch1 + w + 1) == ch2) && ((y2 % 2) == 0)) || (((ch1 + w - 1) == ch2) && (y1 % 2 == 0))))
         //&& (x1 == w && y1 == y2 )))
     {
         return (y2 - y1) * (ch1 + ch2 + 2 * y1)
@@ -141,7 +150,12 @@ inline smooth_trans_args Hexbox::GetSt(cint ch1, cint ch2)
 
 inline int Hexbox::GetSt_num(cint ch1, cint ch2)
 {
-    return 0;
+    int x1 = ch1 % w;
+    int x2 = ch2 % w;
+    int y1 = ch1 / w;
+    int y2 = ch2 / w;
+    int n_st = number_st(x1, y1, x2, y2, w);
+    return n_st;
 }
 
 inline int Hexbox::GetHeight_hex(cint x, cint y)
@@ -256,12 +270,58 @@ inline void Hexbox::fe_st_grid(cint x, cint y)
 {
     count_st = Hexbox::count_st_func(x, y);
     smooth_trans_args def_st = { 0, 0, 0 };
-    for (int i = 0; i < count_hex; i += 1) {
+    for (int i = 0; i < count_st; i += 1) {
         st_grid.push_back(def_st);
     }
 }
 
-int Hexbox::number_ch(cint x, cint y, cint w)
+inline int Hexbox::number_ch(cint x, cint y, cint w)
 {
     return w * y + x;
+}
+
+
+
+inline void Hexbox::save(std::string name)
+{
+    std::ofstream file(name + ".hb");
+
+    if (file.is_open()) {
+        file << w << " " << h << " " << a << std::endl;
+        file << count_hex << " " << count_st << std::endl;
+        for (int i = 0; i < count_hex - 1; i += 1) {
+            file << hex_grid[i].x2d << " " \
+                << hex_grid[i].y2d << " " \
+                << hex_grid[i].hex_h << " " \
+                << hex_grid[i].type_mat << " " \
+                << std::endl;
+        }
+        for (int j = 0; j < count_st - 1; j += 1) {
+            file << st_grid[j].st_h << " " \
+                << st_grid[j].type_mat << " " \
+                << st_grid[j].type_smooth << " " \
+                << std::endl;
+        }
+    }
+}
+
+inline void Hexbox::load(std::string name)
+{
+    std::ifstream file(name + ".hb");
+
+    if (file.is_open()) {
+        file >> w  >> h >> a;
+        file >> count_hex >> count_st ;
+        for (int i = 0; i < count_hex - 1; i += 1) {
+            file >> hex_grid[i].x2d  \
+                >> hex_grid[i].y2d  \
+                >> hex_grid[i].hex_h  \
+                >> hex_grid[i].type_mat;
+        }
+        for (int j = 0; j < count_st - 1; j += 1) {
+            file >> st_grid[j].st_h  \
+                >> st_grid[j].type_mat  \
+                >> st_grid[j].type_smooth;
+        }
+    }
 }
