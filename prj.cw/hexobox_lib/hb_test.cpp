@@ -1,8 +1,15 @@
+/*!
+* \file hb_test.cpp
+* \brief Файл теста библиотеки 
+* \author Курсов Михаил БПМ-22-2
+* \date Январь 2024 года
+* \details Тестирование функций библиотеки 
+*/
+
 #include <iostream>
 
 #include "hexbox.h"
 #include <chrono>
-
 
 void test_hexbox(cint it, cint w, cint h, cint a) {
     int time = 0;
